@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko" style="margin:0!important;padding:0!important;width:100vw!important;min-width:100vw!important;max-width:none!important;background:#f9ecdc!important;">
+<html lang="ko" style="margin:0!important;padding:0!important;width:100vw!important;min-width:100vw!important;max-width:none!important;background:#fdecda!important;">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,6 +8,7 @@
 <title>2028학년도 대학수학능력시험 카운트다운</title>
 <style>
 :root {
+  /* Local screenshot compensation: #f9ecdc input -> #f5ecde displayed; target #f9ecdc. */
   --csat2028-ink: #37352f;
   --csat2028-panel: #010101;
   --csat2028-number: #fafafa;
@@ -23,21 +24,21 @@ html, body {
   width: 100vw !important; min-width: 100vw !important; max-width: none !important;
   height: 100% !important; min-height: 100% !important;
   transform: none !important; border-radius: 0 !important;
-  background: #f9ecdc !important;
+  background: #fdecda !important;
   overflow: hidden;
 }
 html { color-scheme: light; }
 body {
   position: fixed; inset: 0;
   overflow: hidden;
-  background: #f9ecdc;
+  background: #fdecda;
   color: var(--csat2028-ink);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 #csat-2028-viewport {
   position: fixed !important; inset: 0 !important;
-  background: #f9ecdc !important;
+  background: #fdecda !important;
   width: 100vw !important; max-width: none !important;
   height: 100%; height: 100dvh; min-height: 0;
   margin: 0 !important; padding: 16px 0; border: 0; overflow: hidden;
@@ -67,21 +68,34 @@ body {
 .csat2028-unit { display: flex; flex-direction: column; align-items: center; min-width: 0; }
 .csat2028-card {
   position: relative;
-  min-width: 1.7em;
+  --csat2028-digits: 2;
+  flex: 0 0 auto;
+  width: calc(var(--csat2028-digits) * .56em + (var(--csat2028-digits) - 1) * 5px + 22px);
+  min-width: 0;
   height: var(--csat2028-card-height);
   border-radius: .125em;
   font: 400 var(--csat2028-digit-size)/var(--csat2028-card-height) var(--csat2028-digit-font);
-  letter-spacing: 5px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
   color: var(--csat2028-number);
   perspective: 360px;
   isolation: isolate;
   box-shadow: 0 .125em .3125em rgb(0 0 0 / 17%), 0 .02125em .06125em rgb(0 0 0 / 17%);
 }
+.csat2028-card[data-counter="days"] { --csat2028-digits: 3; }
+.csat2028-digit {
+  display: inline-block;
+  flex: 0 0 .56em;
+  width: .56em;
+  text-align: center;
+  letter-spacing: 0;
+}
 .csat2028-sizer {
   display: block; visibility: hidden;
-  min-width: 1.7em;
+  width: 100%; min-width: 0;
   height: var(--csat2028-card-height);
-  padding: 0 6px 0 11px;
+  padding: 0;
   white-space: pre;
 }
 .csat2028-half {
@@ -92,9 +106,10 @@ body {
   transform-style: preserve-3d;
 }
 .csat2028-half .csat2028-text {
-  display: block; position: absolute; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  position: absolute; left: 0; right: 0;
   height: var(--csat2028-card-height); line-height: var(--csat2028-card-height);
-  padding-left: 5px;
+  padding: 0 11px;
   text-align: center; white-space: pre;
 }
 .csat2028-top { top: 0; border-radius: .125em .125em 0 0; transform-origin: center bottom; box-shadow: inset 0 1px rgb(255 255 255 / 5%); }
@@ -116,6 +131,14 @@ body {
 @keyframes csat2028-fold-top { from { transform: rotateX(0); filter: brightness(1); } to { transform: rotateX(-90deg); filter: brightness(.58); } }
 @keyframes csat2028-fold-bottom { from { transform: rotateX(90deg); filter: brightness(.6); } to { transform: rotateX(0); filter: brightness(1); } }
 .csat2028-label { margin-top: 5px; font-size: 14px; line-height: 1.4; font-weight: 400; white-space: nowrap; }
+#csat-2028-clock[hidden], .csat2028-finished[hidden] { display: none !important; }
+.csat2028-finished {
+  margin: 4px 0 0;
+  font-size: clamp(20px, 6vw, 28px);
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+}
 .csat2028-error { margin: 12px 0; font-size: 14px; line-height: 1.5; text-align: center; }
 .csat2028-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (max-width: 360px) {
@@ -135,8 +158,8 @@ body {
 }
 </style>
 </head>
-<body data-csat-build="full-bleed-f9ecdc-v3" bgcolor="#f9ecdc" style="margin:0!important;padding:0!important;border:0!important;width:100vw!important;min-width:100vw!important;max-width:none!important;background:#f9ecdc!important;">
-<main id="csat-2028-viewport" style="position:fixed!important;inset:0!important;width:100vw!important;max-width:none!important;margin:0!important;border:0!important;background:#f9ecdc!important;">
+<body data-csat-build="screenshot-calibrated-fixed-digits-finished-v5" bgcolor="#fdecda" style="margin:0!important;padding:0!important;border:0!important;width:100vw!important;min-width:100vw!important;max-width:none!important;background:#fdecda!important;">
+<main id="csat-2028-viewport" style="position:fixed!important;inset:0!important;width:100vw!important;max-width:none!important;margin:0!important;border:0!important;background:#fdecda!important;">
 <section class="csat2028-widget" aria-labelledby="csat-2028-title">
   <h1 id="csat-2028-title">2028학년도 대학수학능력시험</h1>
   <div id="csat-2028-clock" class="csat2028-clock" role="timer" aria-live="off" aria-label="남은 시간을 계산하고 있습니다.">
@@ -145,6 +168,7 @@ body {
     <div class="csat2028-unit"><div class="csat2028-card" data-counter="minutes" aria-hidden="true"><span class="csat2028-sizer">00</span><div class="csat2028-half csat2028-top csat2028-base-top"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-bottom csat2028-base-bottom"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-top csat2028-moving-front"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-bottom csat2028-moving-back"><span class="csat2028-text">00</span></div><i class="csat2028-hinge"></i></div><div class="csat2028-label" aria-hidden="true">Minutes</div></div>
     <div class="csat2028-unit"><div class="csat2028-card" data-counter="seconds" aria-hidden="true"><span class="csat2028-sizer">00</span><div class="csat2028-half csat2028-top csat2028-base-top"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-bottom csat2028-base-bottom"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-top csat2028-moving-front"><span class="csat2028-text">00</span></div><div class="csat2028-half csat2028-bottom csat2028-moving-back"><span class="csat2028-text">00</span></div><i class="csat2028-hinge"></i></div><div class="csat2028-label" aria-hidden="true">Seconds</div></div>
   </div>
+  <p id="csat-2028-finished" class="csat2028-finished" role="status" aria-live="polite" hidden>수고하셨습니다</p>
   <time class="csat2028-sr-only" datetime="2027-11-18T08:40:00+09:00">2027년 11월 18일 오전 8시 40분, 한국 시간</time>
   <p id="csat-2028-error" class="csat2028-error" hidden>날짜 설정을 확인해 주세요.</p>
   <noscript><p class="csat2028-error">이 위젯을 사용하려면 자바스크립트가 필요합니다.</p></noscript>
@@ -174,8 +198,17 @@ function partsAt(now) {
     started: now >= targetMs
   });
 }
+function setNumberText(element, value) {
+  const digits = Array.from(value, character => {
+    const digit = document.createElement('span');
+    digit.className = 'csat2028-digit';
+    digit.textContent = character;
+    return digit;
+  });
+  element.replaceChildren(...digits);
+}
 function setTexts(card, value) {
-  card.querySelectorAll('.csat2028-text').forEach(el => { el.textContent = value; });
+  card.querySelectorAll('.csat2028-text').forEach(el => { setNumberText(el, value); });
 }
 function updateCard(key, value, animate) {
   const card = document.querySelector('[data-counter="' + key + '"]');
@@ -184,11 +217,12 @@ function updateCard(key, value, animate) {
   clearTimeout(finishTimers.get(key));
   card.classList.remove('csat2028-flipping');
   card.querySelector('.csat2028-sizer').textContent = value;
+  card.style.setProperty('--csat2028-digits', String(Math.max(2, value.length)));
   if (animate && old !== undefined && !reduceMotion.matches && old.length === value.length) {
-    card.querySelector('.csat2028-base-top .csat2028-text').textContent = value;
-    card.querySelector('.csat2028-base-bottom .csat2028-text').textContent = old;
-    card.querySelector('.csat2028-moving-front .csat2028-text').textContent = old;
-    card.querySelector('.csat2028-moving-back .csat2028-text').textContent = value;
+    setNumberText(card.querySelector('.csat2028-base-top .csat2028-text'), value);
+    setNumberText(card.querySelector('.csat2028-base-bottom .csat2028-text'), old);
+    setNumberText(card.querySelector('.csat2028-moving-front .csat2028-text'), old);
+    setNumberText(card.querySelector('.csat2028-moving-back .csat2028-text'), value);
     void card.offsetWidth;
     card.classList.add('csat2028-flipping');
     finishTimers.set(key, setTimeout(() => { card.classList.remove('csat2028-flipping'); setTexts(card, value); }, 390));
@@ -205,6 +239,8 @@ function render(animate = true) {
     return;
   }
   const p = partsAt(Date.now());
+  clock.hidden = p.started;
+  document.getElementById('csat-2028-finished').hidden = !p.started;
   keys.forEach(key => updateCard(key, String(p[key]).padStart(2, '0'), animate));
   clock.setAttribute('aria-label', p.started ? '2028학년도 대학수학능력시험이 시작되었습니다.' :
     '2028학년도 대학수학능력시험까지 ' + p.days + '일 ' + p.hours + '시간 ' + p.minutes + '분 ' + p.seconds + '초 남았습니다.');
